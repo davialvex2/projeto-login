@@ -1,6 +1,7 @@
 package com.daviaugusto.projeto.login.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Builder
 public class Usuario implements UserDetails {
 
     @Id
