@@ -28,7 +28,7 @@ public class UsuarioService {
             throw new RuntimeException("Já existe um usuário com esse email");
         }
         else{
-            passwordEncoder.encode(usuario.getSenha());
+            usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
             usuarioRepository.save(usuario);
             return usuarioConverter.paraUsuarioResponse(usuario);
         }

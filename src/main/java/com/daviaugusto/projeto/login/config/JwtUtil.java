@@ -14,15 +14,15 @@ import java.util.Date;
 @Service
 public class JwtUtil {
 
-    private final String chaveSecreta = "123456789";
+    private final String chaveSecreta = "minha-chave-super-secreta-com-32-bytes!!";
 
 
     public String gerarToken(String username){
         return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() +1000 *60*60))
-                .signWith(Keys.hmacShaKeyFor(chaveSecreta.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256)
+                .setSubject(username) // Define o nome de usuário como o assunto do token
+                .setIssuedAt(new Date()) // Define a data e hora de emissão do token
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // Define a data e hora de expiração (1 hora a partir da emissão)
+                .signWith(Keys.hmacShaKeyFor(chaveSecreta.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256) // Converte a chave secreta em bytes e assina o token com ela
                 .compact();
     }
 
