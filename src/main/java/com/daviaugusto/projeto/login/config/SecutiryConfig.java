@@ -1,6 +1,7 @@
 package com.daviaugusto.projeto.login.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,6 +25,7 @@ public class SecutiryConfig {
     private final JwtUtil jwtUtil;
     private final UserDatailsService userDatailsService;
 
+    @Autowired
     public SecutiryConfig(JwtUtil jwtUtil, UserDatailsService userDatailsService) {
         this.jwtUtil = jwtUtil;
         this.userDatailsService = userDatailsService;
@@ -51,7 +53,7 @@ public class SecutiryConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration){
-        return new AuthenticationConfiguration().getAuthenticationManager();
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
 

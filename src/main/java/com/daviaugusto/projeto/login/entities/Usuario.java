@@ -1,5 +1,6 @@
 package com.daviaugusto.projeto.login.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Builder;
 import org.jspecify.annotations.Nullable;
@@ -19,6 +20,7 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
     @Column(unique = true)
     private String email;

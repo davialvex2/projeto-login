@@ -5,14 +5,20 @@ import com.daviaugusto.projeto.login.dtos.request.UsuarioRequest;
 import com.daviaugusto.projeto.login.dtos.response.UsuarioResponse;
 import com.daviaugusto.projeto.login.entities.Usuario;
 import com.daviaugusto.projeto.login.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UsuarioService {
 
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
     private UsuarioConverter usuarioConverter;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
