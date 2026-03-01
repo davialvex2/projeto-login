@@ -35,6 +35,12 @@ public class UsuarioService {
     }
 
 
+    public UsuarioResponse buscarUsuario(String email){
+        return usuarioConverter.paraUsuarioResponse(usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
+    }
+
+
     public boolean verificarEmail(String email){
         return usuarioRepository.existsByEmail(email);
     }

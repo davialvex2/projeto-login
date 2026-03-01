@@ -11,7 +11,7 @@ public class UsuarioRequest {
 
 
     private String nome;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
     private String email;
     private String senha;

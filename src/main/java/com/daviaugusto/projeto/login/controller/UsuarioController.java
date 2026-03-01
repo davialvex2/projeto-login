@@ -12,11 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -33,15 +33,22 @@ public class UsuarioController {
 
 
     @PostMapping
-    public ResponseEntity<UsuarioResponse> salvarUsuario(@RequestBody UsuarioRequest usuarioRequest){
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.salvarUsuario(usuarioRequest));
+    public ResponseEntity<?> salvarUsuario(@RequestBody UsuarioRequest usuarioRequest){
+        UsuarioResponse usuarioResponse = usuarioService.salvarUsuario(usuarioRequest);
+        return ResponseEntity.ok("Usuário cadastrado com sucesso");
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest login){
+    public ResponseEntity<?> login(@RequestBody LoginRequest login){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(login.getEmail(), login.getSenha()));
-            return "Bearer " + jwtUtil.gerarToken(authentication.getName());
+            String token  = "Bearer" + jwtUtil.gerarToken(authentication.getName());
+            return ResponseEntity.ok(Map.of("token" , token));
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<UsuarioResponse> buscarUsuarioEmail(@RequestHeader ("Authorization") String token, @PathVariable String email){
+        return ResponseEntity.ok(usuarioService.buscarUsuario(email));
     }
 
 
